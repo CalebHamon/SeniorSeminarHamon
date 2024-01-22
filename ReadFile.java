@@ -1,12 +1,18 @@
-import java.io.File;  // Import the File class
+mport java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.ArrayList;
 import java.util.Scanner; // Import the Scanner class to read text files
 
 public class ReadFile {
     
-    public static ArrayList<Roster> roster = new ArrayList<Roster>();
+  public static ArrayList<Roster> roster = new ArrayList<Roster>();
+  public static ArrayList<Sessions> session = new ArrayList<Sessions>();
   public static void main(String[] args) {
+    addRoster();
+    
+  }
+
+  public static void addRoster(){
     try {
       File students = new File("students.txt");
       Scanner studReader = new Scanner(students);
@@ -59,4 +65,32 @@ public class ReadFile {
       e.printStackTrace();
     }
   }
+
+  public static void addSession(){
+    try {
+      File sesObj = new File("sessionName.txt");
+      Scanner sesScanner = new Scanner(sesObj);
+      File alumObj = new File("alumName.txt");
+      Scanner alScanner = new Scanner(alumObj);
+      int popInput = 1;
+      while (sesScanner.hasNextLine()) {
+        String sesData = sesScanner.nextLine();
+        int popScore = popScore(popInput);
+        String alumNameStr = alScanner.nextLine();
+        Sessions b1 = new Sessions(sesData, popScore, alumNameStr);
+        session.add(b1);
+      }
+      sesScanner.close();
+      alScanner.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+  }
+
+  public static int popScore(int sesId){
+    return 0;
+    //Go down list from first to fifth and make a score 
+  }
+  
 }
