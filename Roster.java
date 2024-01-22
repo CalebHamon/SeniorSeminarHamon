@@ -8,7 +8,7 @@ public class Roster {
     private String fouIn;
     private String fifIn;
 
-    public Roster(String emailG, String nameG, String firCh, String secCh, String thiCh, String fouCh, String fifCh){
+    public Roster(String nameG, String emailG, String firCh, String secCh, String thiCh, String fouCh, String fifCh){
         emailIn = emailG;
         nameIn = nameG;
         firIn = firCh;
@@ -17,4 +17,37 @@ public class Roster {
         fouIn = fouCh;
         fifIn = fifCh;
     }
+
+    public String toString(){
+        return nameIn + " '" + emailIn + "' with first choice " + firIn;
+    }
+
+    public String retEmail(){
+        return emailIn;
+    }
+
+    public String retName(){
+        return nameIn;
+    }
+
+    public String retFir(){
+        return firIn;
+    }
+    
+    public String retSec(){
+        return secIn;
+    }
+
+    public String retThi(){
+        return thiIn;
+    }
+
+    public String retFou(){
+        return fouIn;
+    }
+
+    public String retFif(){
+        return fifIn;
+    }
 }
+
