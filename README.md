@@ -7,4 +7,7 @@ Jan 18 - Today I got the roster with the name. email and choice with each other.
 For next class - Want to rank classes via popularity to then begin to sort classes by which is most popular to give an optimal schedule
 
 Jan 22 - Today I created a sessions Arraylist to keep track of each sessions and its popularity score. I also updated the tester so now the rosters properly load
-For next class- create popularity scores, make sure it is dynamic
+For next class - create popularity scores, make sure it is dynamic
+
+Jan 26 - Today I got the popularity score to be more efficent + trying to get the time slots working by adding an array list (so far got setter) that carries what classes are where
+For next class - Get the time slot array list to work + start alloting classes to them, making sure students and alums are not double booked 
