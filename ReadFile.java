@@ -1,4 +1,4 @@
-mport java.io.File;  // Import the File class
+import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.ArrayList;
 import java.util.Scanner; // Import the Scanner class to read text files
@@ -72,10 +72,9 @@ public class ReadFile {
       Scanner sesScanner = new Scanner(sesObj);
       File alumObj = new File("alumName.txt");
       Scanner alScanner = new Scanner(alumObj);
-      int popInput = 1;
       while (sesScanner.hasNextLine()) {
         String sesData = sesScanner.nextLine();
-        int popScore = popScore(popInput);
+        int popScore = popScore(sesData);
         String alumNameStr = alScanner.nextLine();
         Sessions b1 = new Sessions(sesData, popScore, alumNameStr);
         session.add(b1);
@@ -88,9 +87,27 @@ public class ReadFile {
     }
   }
 
-  public static int popScore(int sesId){
-    return 0;
-    //Go down list from first to fifth and make a score 
+  public static int popScore(String sesDataGet){
+    int maxStud = roster.size();
+    int popScore = 0;
+    for(int i = 0; i < maxStud; i++){
+      if(roster.get(i).retFir().equals(sesDataGet)){
+        popScore = popScore + 5;
+      }
+      else if(roster.get(i).retSec().equals(sesDataGet)){
+        popScore = popScore + 4;
+      }
+      else if(roster.get(i).retThi().equals(sesDataGet)){
+        popScore = popScore + 3;
+      }
+      else if(roster.get(i).retFou().equals(sesDataGet)){
+        popScore = popScore + 2;
+      }
+      else if(roster.get(i).retFif().equals(sesDataGet)){
+        popScore = popScore + 1;
+      }
+    }
+    return popScore;
   }
   
 }
