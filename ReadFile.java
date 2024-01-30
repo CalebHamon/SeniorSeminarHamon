@@ -10,11 +10,7 @@ public class ReadFile {
   public static ArrayList<Sessions> session = new ArrayList<Sessions>();
   public static void main(String[] args) {
     addRoster();
-    addSession();;
-    for(int i = 0; i < 18; i++){
-      System.out.println(session.get(i).retPop());
-    }
-    
+    addSession();
   }
 
   public static void addRoster(){
@@ -125,6 +121,28 @@ public class ReadFile {
     }
     String class1 = session.get(tempPlace).retName();
     addMates(tempPlace);
+    tempPlace = 0;
+    for(int i = 1; i < session.size(); i++){
+      if(!(class1.equals(session.get(i).retName()))){
+        if(session.get(tempPlace).retPop() < session.get(i).retPop()){
+          tempPlace = i;
+        }
+      }
+    }
+    String class2 = session.get(tempPlace).retName();
+    addMates(tempPlace);
+    tempPlace = 0;
+    for(int i = 1; i < session.size(); i++){
+      if(!(class1.equals(session.get(i).retName()))){
+        if(class2.equals(session.get(i).retName())){
+          if(session.get(tempPlace).retPop() < session.get(i).retPop()){
+            tempPlace = i;
+          }
+        }
+      }
+    }
+    String class3 = session.get(tempPlace).retName();
+    tempPlace = 0;
 
   }
 
@@ -174,6 +192,16 @@ public class ReadFile {
     for(int i = 0; i < startInt; i++){
       if(occ < 16){
         if(roster.get(i).retFif().equals(session.get(temp).retName())){
+          session.get(temp).addPeep(roster.get(i).retName());
+          availRoster.remove(i);
+          occ++;
+        }
+      }
+    }
+    startInt = availRoster.size();
+    if(occ < 16){
+      for(int i = 0; i < startInt; i++){
+        if(occ < 16){
           session.get(temp).addPeep(roster.get(i).retName());
           availRoster.remove(i);
           occ++;
