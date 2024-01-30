@@ -6,9 +6,14 @@ import java.util.Scanner; // Import the Scanner class to read text files
 public class ReadFile {
     
   public static ArrayList<Roster> roster = new ArrayList<Roster>();
+  public static ArrayList<Roster> availRoster = new ArrayList<Roster>();
   public static ArrayList<Sessions> session = new ArrayList<Sessions>();
   public static void main(String[] args) {
     addRoster();
+    addSession();;
+    for(int i = 0; i < 18; i++){
+      System.out.println(session.get(i).retPop());
+    }
     
   }
 
@@ -44,14 +49,15 @@ public class ReadFile {
           fifthData = fifReader.nextLine();
         }
         else {
-          firstData = null;
-          secondData = null;
-          thirdData = null;
-          fourthData = null;
-          fifthData = null;
+          firstData = "";
+          secondData = "";
+          thirdData = "";
+          fourthData = "";
+          fifthData = "";
         }
         Roster b1 = new Roster(studData, emailData, firstData, secondData, thirdData, fourthData, fifthData);
         roster.add(b1);
+        availRoster.add(b1);
       }
       studReader.close();
       emaReader.close();
@@ -88,26 +94,94 @@ public class ReadFile {
   }
 
   public static int popScore(String sesDataGet){
-    int maxStud = roster.size();
+    int maxStud = availRoster.size();
     int popScore = 0;
     for(int i = 0; i < maxStud; i++){
-      if(roster.get(i).retFir().equals(sesDataGet)){
+      if(availRoster.get(i).retFir().equals(sesDataGet)){
         popScore = popScore + 5;
       }
-      else if(roster.get(i).retSec().equals(sesDataGet)){
+      else if(availRoster.get(i).retSec().equals(sesDataGet)){
         popScore = popScore + 4;
       }
-      else if(roster.get(i).retThi().equals(sesDataGet)){
+      else if(availRoster.get(i).retThi().equals(sesDataGet)){
         popScore = popScore + 3;
       }
-      else if(roster.get(i).retFou().equals(sesDataGet)){
+      else if(availRoster.get(i).retFou().equals(sesDataGet)){
         popScore = popScore + 2;
       }
-      else if(roster.get(i).retFif().equals(sesDataGet)){
+      else if(availRoster.get(i).retFif().equals(sesDataGet)){
         popScore = popScore + 1;
       }
     }
     return popScore;
   }
-  
+
+  public static void makeClasses(){
+    int tempPlace = 0;
+    for(int i = 1; i < session.size(); i++){
+      if(session.get(tempPlace).retPop() < session.get(i).retPop()){
+        tempPlace = i;
+      }
+    }
+    String class1 = session.get(tempPlace).retName();
+    addMates(tempPlace);
+
+  }
+
+  public static void addMates(int temp) {
+    int occ = 0;
+    int startInt = availRoster.size();
+    for(int i = 0; i < startInt; i++){
+      if(occ < 16){
+        if(roster.get(i).retFir().equals(session.get(temp).retName())){
+          session.get(temp).addPeep(roster.get(i).retName());
+          availRoster.remove(i);
+          occ++;
+        }
+      }
+    }
+    startInt = availRoster.size();
+    for(int i = 0; i < startInt; i++){
+      if(occ < 16){
+        if(roster.get(i).retSec().equals(session.get(temp).retName())){
+          session.get(temp).addPeep(roster.get(i).retName());
+          availRoster.remove(i);
+          occ++;
+        }
+      }
+    }
+    startInt = availRoster.size();
+    for(int i = 0; i < startInt; i++){
+      if(occ < 16){
+        if(roster.get(i).retThi().equals(session.get(temp).retName())){
+          session.get(temp).addPeep(roster.get(i).retName());
+          availRoster.remove(i);
+          occ++;
+        }
+      }
+    }
+    startInt = availRoster.size();
+    for(int i = 0; i < startInt; i++){
+      if(occ < 16){
+        if(roster.get(i).retFou().equals(session.get(temp).retName())){
+          session.get(temp).addPeep(roster.get(i).retName());
+          availRoster.remove(i);
+          occ++;
+        }
+      }
+    }
+    startInt = availRoster.size();
+    for(int i = 0; i < startInt; i++){
+      if(occ < 16){
+        if(roster.get(i).retFif().equals(session.get(temp).retName())){
+          session.get(temp).addPeep(roster.get(i).retName());
+          availRoster.remove(i);
+          occ++;
+        }
+      }
+    }
+    for(int i = 0; i > session.size(); i++){
+      session.get(i).updatePop(popScore(session.get(i).retName()));
+    }
+  }
 }

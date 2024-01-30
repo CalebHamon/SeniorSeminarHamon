@@ -1,22 +1,29 @@
+import java.util.ArrayList;
+
 public class Sessions {
     private String nameIn;
     private int popIn;
     private String alumIn;
-    private int peepIn;
+    public static ArrayList<String> roster;
+
 
     public Sessions(String nameG, int popG, String alumG){
         nameIn = nameG;
         popIn = popG;
         alumIn = alumG;
-        peepIn = 0;
+        roster = new ArrayList<String>();
     }
 
-    public void addPeep(){
-        peepIn++;
+    public void updatePop(int popG){
+        popIn = popG;
+    }
+
+    public void addPeep(String perG){
+        roster.add(perG);
     }    
 
     public int retPeep(){
-        return peepIn;
+        return roster.size();
     }
 
     public String retName(){

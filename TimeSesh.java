@@ -15,4 +15,12 @@ public class TimeSesh {
         classIn4 = class4;
         classIn5 = class5;
     }
+
+    public int whatTime() {
+        return slotIn;
+    }
+
+    public String whatClasses() {
+        return classIn1 + " " + classIn2 + " " + classIn3 + " " + classIn4 + " " + classIn5;
+    }
 }
