@@ -10,7 +10,7 @@ public class ReadFile {
   public static ArrayList<Sessions> session = new ArrayList<Sessions>();
   public static void main(String[] args) {
     addRoster();
-    addSession();
+    addSession(); 
   }
 
   public static void addRoster(){
@@ -142,7 +142,23 @@ public class ReadFile {
       }
     }
     String class3 = session.get(tempPlace).retName();
+    addMates(tempPlace);
     tempPlace = 0;
+    for(int i = 1; i < session.size(); i++){
+      if(!(class1.equals(session.get(i).retName()))){
+        if(class2.equals(session.get(i).retName())){
+          if(class3.equals(session.get(i).retName())){
+            if(session.get(tempPlace).retPop() < session.get(i).retPop()){
+              tempPlace = i;
+            }
+          }
+        }
+      }
+    }
+    String class4 = session.get(tempPlace).retName();
+    addMates(tempPlace);
+    tempPlace = 0;
+    
 
   }
 
