@@ -94,16 +94,16 @@ public class ReadFile {
   }
 
   public static boolean duplicate(int checker, int class1, int class2, int class3, int class4){
-    if(session.get(checker).retAlum().equals(session.get(class1).retAlum())){
+    if(availSession.get(checker).retAlum().equals(availSession.get(class1).retAlum())){
       return false;
     }
-    else if(session.get(checker).retAlum().equals(session.get(class2).retAlum())){
+    else if(availSession.get(checker).retAlum().equals(availSession.get(class2).retAlum())){
       return false;
     }
-    else if(session.get(checker).retAlum().equals(session.get(class3).retAlum())){
+    else if(availSession.get(checker).retAlum().equals(availSession.get(class3).retAlum())){
       return false;
     }
-    else if(session.get(checker).retAlum().equals(session.get(class4).retAlum())){
+    else if(availSession.get(checker).retAlum().equals(availSession.get(class4).retAlum())){
       return false;
     }
     else{

@@ -14,3 +14,6 @@ For next class - Get the time slot array list to work + start alloting classes t
 
 Jan 30 - Today I got the pop score to work when it needs to remove people already in a class, and got the adding classmates to work
 For next class - continuing adding people to the classes and make the entire schedule
+
+Feb 1 - Today I got the duplication of alumi close to working, and additionally finished making the classes
+For next class - Find out a way to get the inputs right for the alums, meaning that using a shifted availsession will not work for checking the alumni (QuickFix - using availSession, now that I think about, it might work)
