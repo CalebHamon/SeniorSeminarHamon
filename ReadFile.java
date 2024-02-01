@@ -93,6 +93,24 @@ public class ReadFile {
     }
   }
 
+  public static boolean duplicate(int checker, int class1, int class2, int class3, int class4){
+    if(session.get(checker).retAlum().equals(session.get(class1).retAlum())){
+      return false;
+    }
+    else if(session.get(checker).retAlum().equals(session.get(class2).retAlum())){
+      return false;
+    }
+    else if(session.get(checker).retAlum().equals(session.get(class3).retAlum())){
+      return false;
+    }
+    else if(session.get(checker).retAlum().equals(session.get(class4).retAlum())){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
   public static int popScore(String sesDataGet) {
     int maxStud = availRoster.size();
     int popScore = 0;
@@ -120,39 +138,51 @@ public class ReadFile {
       }
     }
     String class1 = session.get(tempPlace).retName();
+    int alumData1 = tempPlace;
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
       if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
-        tempPlace = i;
+        if(duplicate(i, alumData1, alumData1, alumData1, alumData1)){
+          tempPlace = i;
+        }
       }
     }
     String class2 = session.get(tempPlace).retName();
+    int alumData2 = tempPlace;
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
       if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
-        tempPlace = i;
+        if(duplicate(i, alumData1, alumData2, alumData1, alumData1)){
+          tempPlace = i;
+        }
       }
     }
     String class3 = session.get(tempPlace).retName();
+    int alumData3 = tempPlace;
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
       if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
-        tempPlace = i;
+        if(duplicate(i, alumData1, alumData2, alumData3, alumData1)){
+          tempPlace = i;
+        }
       }
     }
     String class4 = session.get(tempPlace).retName();
+    int alumData4 = tempPlace;
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
       if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
-        tempPlace = i;
+        if(duplicate(i, alumData1, alumData2, alumData3, alumData4)){
+          tempPlace = i;
+        }
       }
     }
     String class5 = session.get(tempPlace).retName();
