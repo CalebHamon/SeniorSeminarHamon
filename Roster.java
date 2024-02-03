@@ -33,21 +33,41 @@ public class Roster {
     public String retFir(){
         return firIn;
     }
+
+    public void changeFir(){
+        firIn = "";
+    }
     
     public String retSec(){
         return secIn;
+    }
+
+    public void changeSec(){
+        secIn = "";
     }
 
     public String retThi(){
         return thiIn;
     }
 
+    public void changeThi(){
+        thiIn = "";
+    }
+
     public String retFou(){
         return fouIn;
     }
 
+    public void changeFou(){
+        fouIn = "";
+    }
+
     public String retFif(){
         return fifIn;
+    }
+
+    public void changeFif(){
+        fifIn = "";
     }
 }
 

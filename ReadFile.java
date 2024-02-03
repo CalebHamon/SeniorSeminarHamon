@@ -16,7 +16,7 @@ public class ReadFile {
     addRoster();
     addSession();
     for (int i = 0; i < 4; i++){
-      makeClasses(); //186
+      makeClasses();
     }
   }
 
@@ -96,17 +96,17 @@ public class ReadFile {
     }
   }
 
-  public static boolean duplicate(int checker, int class1, int class2, int class3, int class4){
-    if(availSession.get(checker).retAlum().equals(availSession.get(class1).retAlum())){
+  public static boolean duplicate(int checker, String class1, String class2, String class3, String class4){
+    if(availSession.get(checker).retAlum().equals(class1)){
       return false;
     }
-    else if(availSession.get(checker).retAlum().equals(availSession.get(class2).retAlum())){
+    else if(availSession.get(checker).retAlum().equals(class2)){
       return false;
     }
-    else if(availSession.get(checker).retAlum().equals(availSession.get(class3).retAlum())){
+    else if(availSession.get(checker).retAlum().equals(class3)){
       return false;
     }
-    else if(availSession.get(checker).retAlum().equals(availSession.get(class4).retAlum())){
+    else if(availSession.get(checker).retAlum().equals(class4)){
       return false;
     }
     else{
@@ -141,7 +141,7 @@ public class ReadFile {
       }
     }
     String class1 = session.get(tempPlace).retName();
-    int alumData1 = tempPlace;
+    String alumData1 = availSession.get(tempPlace).retAlum();;
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
@@ -153,7 +153,7 @@ public class ReadFile {
       }
     }
     String class2 = session.get(tempPlace).retName();
-    int alumData2 = tempPlace;
+    String alumData2 = availSession.get(tempPlace).retAlum();;
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
@@ -165,7 +165,7 @@ public class ReadFile {
       }
     }
     String class3 = session.get(tempPlace).retName();
-    int alumData3 = tempPlace;
+    String alumData3 = availSession.get(tempPlace).retAlum();;
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
@@ -177,7 +177,7 @@ public class ReadFile {
       }
     }
     String class4 = session.get(tempPlace).retName();
-    int alumData4 = tempPlace;
+    String alumData4 = availSession.get(tempPlace).retAlum();
     addMates(tempPlace);
     availSession.remove(tempPlace);
     tempPlace = 0;
@@ -196,6 +196,7 @@ public class ReadFile {
     timeSlot.add(b1);
     seshCounter++;
     availRoster = roster;
+    availSession = session;
   }
 
   public static void addMates(int temp) {
@@ -204,6 +205,7 @@ public class ReadFile {
       if (occ < 16) {
         if (availRoster.get(i).retFir().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
+          roster.get(i).changeFir();
           availRoster.remove(i);
           occ++;
         }
@@ -213,6 +215,7 @@ public class ReadFile {
       if (occ < 16) {
         if (availRoster.get(i).retSec().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
+          roster.get(i).changeSec();
           availRoster.remove(i);
           occ++;
         }
@@ -222,6 +225,7 @@ public class ReadFile {
       if (occ < 16) {
         if (availRoster.get(i).retThi().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
+          roster.get(i).changeThi();
           availRoster.remove(i);
           occ++;
         }
@@ -231,6 +235,7 @@ public class ReadFile {
       if (occ < 16) {
         if (availRoster.get(i).retFou().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
+          roster.get(i).changeFou();
           availRoster.remove(i);
           occ++;
         }
@@ -240,6 +245,7 @@ public class ReadFile {
       if (occ < 16) {
         if (availRoster.get(i).retFif().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
+          roster.get(i).changeFif();
           availRoster.remove(i);
           occ++;
         }
