@@ -15,6 +15,9 @@ public class ReadFile {
   public static void main(String[] args) {
     addRoster();
     addSession();
+    for (int i = 0; i < 4; i++){
+      makeClasses(); //186
+    }
   }
 
   public static void addRoster() {
@@ -132,8 +135,8 @@ public class ReadFile {
 
   public static void makeClasses() {
     int tempPlace = 0;
-    for (int i = 1; i < session.size(); i++) {
-      if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
+    for (int i = 1; i < availSession.size(); i++) {
+      if (session.get(tempPlace).retPop() < availSession.get(i).retPop()) {
         tempPlace = i;
       }
     }
@@ -143,7 +146,7 @@ public class ReadFile {
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
-      if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
+      if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
         if(duplicate(i, alumData1, alumData1, alumData1, alumData1)){
           tempPlace = i;
         }
@@ -155,7 +158,7 @@ public class ReadFile {
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
-      if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
+      if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
         if(duplicate(i, alumData1, alumData2, alumData1, alumData1)){
           tempPlace = i;
         }
@@ -167,7 +170,7 @@ public class ReadFile {
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
-      if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
+      if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
         if(duplicate(i, alumData1, alumData2, alumData3, alumData1)){
           tempPlace = i;
         }
@@ -179,7 +182,7 @@ public class ReadFile {
     availSession.remove(tempPlace);
     tempPlace = 0;
     for (int i = 1; i < availSession.size(); i++) {
-      if (availSession.get(tempPlace).retPop() < session.get(i).retPop()) {
+      if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
         if(duplicate(i, alumData1, alumData2, alumData3, alumData4)){
           tempPlace = i;
         }
@@ -192,65 +195,60 @@ public class ReadFile {
     TimeSesh b1 = new TimeSesh(seshCounter, class1, class2, class3, class4, class5);
     timeSlot.add(b1);
     seshCounter++;
+    availRoster = roster;
   }
 
   public static void addMates(int temp) {
     int occ = 0;
-    int startInt = availRoster.size();
-    for (int i = 0; i < startInt; i++) {
+    for (int i = 0; i < availRoster.size(); i++) {
       if (occ < 16) {
-        if (roster.get(i).retFir().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(roster.get(i).retName());
+        if (availRoster.get(i).retFir().equals(session.get(temp).retName())) {
+          session.get(temp).addPeep(availRoster.get(i).retName());
           availRoster.remove(i);
           occ++;
         }
       }
     }
-    startInt = availRoster.size();
-    for (int i = 0; i < startInt; i++) {
+    for (int i = 0; i < availRoster.size(); i++) {
       if (occ < 16) {
-        if (roster.get(i).retSec().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(roster.get(i).retName());
+        if (availRoster.get(i).retSec().equals(session.get(temp).retName())) {
+          session.get(temp).addPeep(availRoster.get(i).retName());
           availRoster.remove(i);
           occ++;
         }
       }
     }
-    startInt = availRoster.size();
-    for (int i = 0; i < startInt; i++) {
+    for (int i = 0; i < availRoster.size(); i++) {
       if (occ < 16) {
-        if (roster.get(i).retThi().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(roster.get(i).retName());
+        if (availRoster.get(i).retThi().equals(session.get(temp).retName())) {
+          session.get(temp).addPeep(availRoster.get(i).retName());
           availRoster.remove(i);
           occ++;
         }
       }
     }
-    startInt = availRoster.size();
-    for (int i = 0; i < startInt; i++) {
+    for (int i = 0; i < availRoster.size(); i++) {
       if (occ < 16) {
-        if (roster.get(i).retFou().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(roster.get(i).retName());
+        if (availRoster.get(i).retFou().equals(session.get(temp).retName())) {
+          session.get(temp).addPeep(availRoster.get(i).retName());
           availRoster.remove(i);
           occ++;
         }
       }
     }
-    startInt = availRoster.size();
-    for (int i = 0; i < startInt; i++) {
+    for (int i = 0; i < availRoster.size(); i++) {
       if (occ < 16) {
-        if (roster.get(i).retFif().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(roster.get(i).retName());
+        if (availRoster.get(i).retFif().equals(session.get(temp).retName())) {
+          session.get(temp).addPeep(availRoster.get(i).retName());
           availRoster.remove(i);
           occ++;
         }
       }
     }
-    startInt = availRoster.size();
     if (occ < 16) {
-      for (int i = 0; i < startInt; i++) {
+      for (int i = 0; i < availRoster.size(); i++) {
         if (occ < 16) {
-          session.get(temp).addPeep(roster.get(i).retName());
+          session.get(temp).addPeep(availRoster.get(i).retName());
           availRoster.remove(i);
           occ++;
         }
