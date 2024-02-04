@@ -37,6 +37,14 @@ public class TimeSesh {
         class5Roster = roster5;
     }
 
+    public int getPeep1Size(){
+        return class1Roster.size();
+    }
+
+    public String getPeep1(int i){
+       return class1Roster.get(i);
+    }
+
     public int whatTime() {
         return slotIn;
     }

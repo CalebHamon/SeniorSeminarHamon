@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Roster {
     
     private String emailIn;
@@ -9,7 +7,12 @@ public class Roster {
     private String thiIn;
     private String fouIn;
     private String fifIn;
-    private static ArrayList<String> classList;
+    private String firClass;
+    private String secClass;
+    private String thiClass;
+    private String fouClass;
+    private String fifClass;
+    
 
 
     public Roster(String nameG, String emailG, String firCh, String secCh, String thiCh, String fouCh, String fifCh){
@@ -20,7 +23,11 @@ public class Roster {
         thiIn = thiCh;
         fouIn = fouCh;
         fifIn = fifCh;
-        classList = new ArrayList<String>();
+        firClass = "";
+        secClass = "";
+        thiClass = "";
+        fouClass = "";
+        fifClass = "";
     }
 
     public String toString(){
@@ -75,12 +82,48 @@ public class Roster {
         fifIn = "";
     }
 
-    public void updateClass(String sesh){
-        classList.add(sesh);
+    public void changeFirClass(String class1){
+        firClass = class1;
     }
 
-    public String retClassList(int i){
-        return classList.get(i);
+    public String retClass1(){
+        return firClass;
+    }
+
+    public void changeSecClass(String class2){
+        secClass = class2;
+    }
+
+    public String retClass2(){
+        return secClass;
+    }
+
+    public void changeThiClass(String class3){
+        thiClass = class3;
+    }
+
+    public String retClass3(){
+        return thiClass;
+    }
+
+    public void changeFouClass(String class4){
+        fouClass = class4;
+    }
+
+    public String retClass4(){
+        return fouClass;
+    }
+
+    public void changeFifClass(String class5){
+        fifClass = class5;
+    }
+
+    public String retClass5(){
+        return fifClass;
+    }
+
+    public void StudSchedule(){
+        System.out.println("First Block:\n" + firClass + "\nSecond Block:\n" + secClass  + "\nThird Block:\n" + thiClass  + "\nFourth Block:\n" + fouClass  + "\nFifth Block:\n" + fifClass);
     }
 }
 

@@ -14,10 +14,23 @@ public class ReadFile {
 
   public static void main(String[] args) {
     addRoster();
+    System.out.println();
     addSession();
     for (int i = 0; i < 5; i++) {
       makeClasses();
     }
+
+    whynowork(0);
+    //System.out.println("\n\n\n\n\n");
+    //System.out.println(timeSlot.get(0).whatClasses() + "\n\n\n\n");
+    //System.out.println(timeSlot.get(1).whatClasses() + "\n\n\n\n");
+    //System.out.println(timeSlot.get(2).whatClasses() + "\n\n\n\n");
+    //System.out.println(timeSlot.get(3).whatClasses() + "\n\n\n\n");
+    //System.out.println(timeSlot.get(4).whatClasses() + "\n\n\n\n");
+  }
+
+  public static void whynowork(int i) {
+    roster.get(i).StudSchedule();
   }
 
   public static void addRoster() {
@@ -58,7 +71,9 @@ public class ReadFile {
           fifthData = "";
         }
         Roster b1 = new Roster(studData, emailData, firstData, secondData, thirdData, fourthData, fifthData);
-        roster.add(b1);
+        if (seshCounter == 1) {
+          roster.add(b1);
+        }
         availRoster.add(b1);
       }
       studReader.close();
@@ -143,38 +158,14 @@ public class ReadFile {
     return popScore;
   }
 
-  public static void transferRoster(String class1, String class2, String class3, String class4, String class5){
-    ArrayList<String> b1 = new ArrayList<String>();
-    ArrayList<String> b2 = new ArrayList<String>();
-    ArrayList<String> b3 = new ArrayList<String>();
-    ArrayList<String> b4 = new ArrayList<String>();
-    ArrayList<String> b5 = new ArrayList<String>();
-    for (int i = 0; i < session.size(); i++){
-      if(session.get(i).retName().equals(class1)){
-        b1 = session.get(i).retPeep();
+  public static int availConverter(int temp){
+    int perm = 0;
+    for(int i = 0; i < session.size(); i++){
+      if(session.get(i).retName().equals(availSession.get(temp).retName())){
+        perm = i;
       }
     }
-    for (int i = 0; i < session.size(); i++){
-      if(session.get(i).retName().equals(class2)){
-        b2 = session.get(i).retPeep();
-      }
-    }
-    for (int i = 0; i < session.size(); i++){
-      if(session.get(i).retName().equals(class3)){
-        b3 = session.get(i).retPeep();
-      }
-    }
-    for (int i = 0; i < session.size(); i++){
-      if(session.get(i).retName().equals(class4)){
-        b4 = session.get(i).retPeep();
-      }
-    }
-    for (int i = 0; i < session.size(); i++){
-      if(session.get(i).retName().equals(class5)){
-        b5 = session.get(i).retPeep();
-      }
-    }
-    timeSlot.get(seshCounter-1).addTimeRost(b1, b2, b3, b4, b5);
+    return perm;
   }
 
   public static void makeClasses() {
@@ -186,24 +177,24 @@ public class ReadFile {
     }
     String class1 = availSession.get(tempPlace).retName();
     String alumData1 = availSession.get(tempPlace).retAlum();
-    addMates(tempPlace);
+    addMates(availConverter(tempPlace));
     availSession.remove(tempPlace);
-    for(int i = 0; i < availSession.size(); i++){
+    for (int i = 0; i < availSession.size(); i++) {
       availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
     for (int i = 0; i < availSession.size(); i++) {
-        if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
-          if (duplicateAlum(i, alumData1, alumData1, alumData1, alumData1)) {
-            tempPlace = i;
-          }
+      if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
+        if (duplicateAlum(i, alumData1, alumData1, alumData1, alumData1)) {
+          tempPlace = i;
         }
+      }
     }
     String class2 = availSession.get(tempPlace).retName();
     String alumData2 = availSession.get(tempPlace).retAlum();
-    addMates(tempPlace);
+    addMates(availConverter(tempPlace));
     availSession.remove(tempPlace);
-    for(int i = 0; i < availSession.size(); i++){
+    for (int i = 0; i < availSession.size(); i++) {
       availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
@@ -218,9 +209,9 @@ public class ReadFile {
     }
     String class3 = availSession.get(tempPlace).retName();
     String alumData3 = availSession.get(tempPlace).retAlum();
-    addMates(tempPlace);
+    addMates(availConverter(tempPlace));
     availSession.remove(tempPlace);
-    for(int i = 0; i < availSession.size(); i++){
+    for (int i = 0; i < availSession.size(); i++) {
       availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
@@ -235,9 +226,9 @@ public class ReadFile {
     }
     String class4 = availSession.get(tempPlace).retName();
     String alumData4 = availSession.get(tempPlace).retAlum();
-    addMates(tempPlace);
+    addMates(availConverter(tempPlace));
     availSession.remove(tempPlace);
-    for(int i = 0; i < availSession.size(); i++){
+    for (int i = 0; i < availSession.size(); i++) {
       availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
@@ -251,40 +242,69 @@ public class ReadFile {
       }
     }
     String class5 = availSession.get(tempPlace).retName();
-    addMates(tempPlace);
-    for(int i = 0; i < session.size(); i++){
+    addMates(availConverter(tempPlace));
+    for (int i = 0; i < session.size(); i++) {
       session.get(i).updatePop(popScore(session.get(i).retName()));
     }
     TimeSesh b1 = new TimeSesh(seshCounter, class1, class2, class3, class4, class5);
     timeSlot.add(b1);
-    transferRoster(class1, class2, class3, class4, class5);
-    removeMates();
     seshCounter++;
-    availRoster = roster;
+    addRoster();
     availSession = session;
   }
 
-  public static void addMates(int temp) {
-    int getInt = 0;
-    for(int i = 0; i < session.size(); i++){
-      if(availSession.get(temp).retName().equals(session.get(i).retName())){
-        getInt = i;
-      }
+  public static void addClasses(int j, int temp) {
+    if (seshCounter == 1) {
+      roster.get(j).changeFirClass(session.get(temp).retName());
     }
-    temp = getInt;
+    if (seshCounter == 2) {
+      roster.get(j).changeSecClass(session.get(temp).retName());
+    }
+    if (seshCounter == 3) {
+      roster.get(j).changeThiClass(session.get(temp).retName());
+    }
+    if (seshCounter == 4) {
+      roster.get(j).changeFouClass(session.get(temp).retName());
+    }
+    if (seshCounter == 5) {
+      roster.get(j).changeFifClass(session.get(temp).retName());
+    }
+  }
+
+  public static boolean inClass(int temp, int alTh) {
+    if (session.get(temp).retName().equals(roster.get(alTh).retClass1())) {
+      return false;
+    } else if (session.get(temp).retName().equals(roster.get(alTh).retClass2())) {
+      return false;
+    } else if (session.get(temp).retName().equals(roster.get(alTh).retClass3())) {
+      return false;
+    } else if (session.get(temp).retName().equals(roster.get(alTh).retClass4())) {
+      return false;
+    } else if (session.get(temp).retName().equals(roster.get(alTh).retClass5())) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public static void addMates(int temp) {
     int occ = 0;
     for (int i = 0; i < availRoster.size(); i++) {
       if (occ < 16) {
         if (availRoster.get(i).retFir().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
           for (int j = 0; j < roster.size(); j++) {
-            if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-              roster.get(j).changeFir();
-              roster.get(j).updateClass(session.get(temp).retName());
+            if(i < availRoster.size()){
+              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                if (inClass(temp, j)) {
+                  roster.get(j).changeFir();
+                  addClasses(j, temp);
+                  occ++;
+                  availRoster.remove(i);
+                }
+              }
             }
           }
-          availRoster.remove(i);
-          occ++;
         }
       }
     }
@@ -293,13 +313,17 @@ public class ReadFile {
         if (availRoster.get(i).retSec().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
           for (int j = 0; j < roster.size(); j++) {
-            if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-              roster.get(j).changeSec();
-              roster.get(j).updateClass(session.get(temp).retName());
+            if(i < availRoster.size()){
+              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                if (inClass(temp, j)) {
+                  roster.get(j).changeSec();
+                  addClasses(j, temp);
+                  occ++;
+                  availRoster.remove(i);
+                }
+              }
             }
           }
-          availRoster.remove(i);
-          occ++;
         }
       }
     }
@@ -308,13 +332,17 @@ public class ReadFile {
         if (availRoster.get(i).retThi().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
           for (int j = 0; j < roster.size(); j++) {
-            if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-              roster.get(j).changeThi();
-              roster.get(j).updateClass(session.get(temp).retName());
+            if(i < availRoster.size()){
+              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                if (inClass(temp, j)) {
+                  roster.get(j).changeThi();
+                  addClasses(j, temp);
+                  occ++;
+                  availRoster.remove(i);
+                }
+              }
             }
           }
-          availRoster.remove(i);
-          occ++;
         }
       }
     }
@@ -323,13 +351,17 @@ public class ReadFile {
         if (availRoster.get(i).retFou().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
           for (int j = 0; j < roster.size(); j++) {
-            if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-              roster.get(j).changeFou();
-              roster.get(j).updateClass(session.get(temp).retName());
+            if(i < availRoster.size()){
+              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                if (inClass(temp, j)) {
+                  roster.get(j).changeFou();
+                  addClasses(j, temp);
+                  occ++;
+                  availRoster.remove(i);
+                }
+              }
             }
           }
-          availRoster.remove(i);
-          occ++;
         }
       }
     }
@@ -338,13 +370,17 @@ public class ReadFile {
         if (availRoster.get(i).retFif().equals(session.get(temp).retName())) {
           session.get(temp).addPeep(availRoster.get(i).retName());
           for (int j = 0; j < roster.size(); j++) {
-            if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-              roster.get(j).changeFif();
-              roster.get(j).updateClass(session.get(temp).retName());
+            if(i < availRoster.size()){
+              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                if (inClass(temp, j)) {
+                  roster.get(j).changeFif();
+                  addClasses(j, temp);
+                  occ++;
+                  availRoster.remove(i);
+                }
+              }
             }
           }
-          availRoster.remove(i);
-          occ++;
         }
       }
     }
@@ -353,20 +389,18 @@ public class ReadFile {
         if (occ < 16) {
           session.get(temp).addPeep(availRoster.get(i).retName());
           for (int j = 0; j < roster.size(); j++) {
-            if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-              roster.get(j).updateClass(session.get(temp).retName());
+            if(i < availRoster.size()){
+              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                if(inClass(temp, j)){
+                  addClasses(j, temp);
+                  availRoster.remove(i);
+                  occ++;
+                }
+              }
             }
           }
-          availRoster.remove(i);
-          occ++;
         }
       }
-    }
-  }
-
-  public static void removeMates(){
-    for (int i = 0; i < session.size(); i++){
-      session.get(i).retPeep().clear();
     }
   }
 }
