@@ -19,18 +19,115 @@ public class ReadFile {
     for (int i = 0; i < 5; i++) {
       makeClasses();
     }
+    // masterSched();
+    classLookup();
+    // studSearch();
 
-    whynowork(0);
-    //System.out.println("\n\n\n\n\n");
-    //System.out.println(timeSlot.get(0).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(1).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(2).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(3).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(4).whatClasses() + "\n\n\n\n");
   }
 
-  public static void whynowork(int i) {
-    roster.get(i).StudSchedule();
+  public static void masterSched() {
+    try (Scanner scan = new Scanner(System.in)) {
+      String yesser = "y";
+      System.out.println("Would you like the Master Schedule? (y/n)");
+      System.out.println("The classes will be arranged in order of time (first set is period 1, etc)");
+      yesser = scan.nextLine();
+      if (yesser.equals("y")) {
+        System.out.println("\n");
+        System.out.println(timeSlot.get(0).whatClasses() + "\n\n\n\n");
+        System.out.println(timeSlot.get(1).whatClasses() + "\n\n\n\n");
+        System.out.println(timeSlot.get(2).whatClasses() + "\n\n\n\n");
+        System.out.println(timeSlot.get(3).whatClasses() + "\n\n\n\n");
+        System.out.println(timeSlot.get(4).whatClasses() + "\n\n\n\n");
+      }
+    }
+  }
+
+  public static void classLookup() {
+    try (Scanner scan = new Scanner(System.in)) {
+      String yesser = "y";
+      int lastOne = 0;
+      int key = 0;
+      do {
+        System.out.println("Would you like to search for a session's schedule? (y/n)");
+        yesser = scan.nextLine();
+        if (yesser.equals("y")) {
+          key = 1; 
+          do {
+            System.out.println("What time slot is the session in (1, 2, 3, 4, 5)? (please use number 1, 2, etc)");
+            lastOne = scan.nextInt();
+          } while (!(lastOne >= 1) && !(lastOne <= 5));
+          classLookupP2(lastOne);
+        }
+        else{
+          key = 0;
+        }
+      } while (!(key == 1));
+    }
+  }
+
+  public static void classLookupP2(int lastOne) {
+    try (Scanner scan = new Scanner(System.in)) {
+      String seshName;
+      System.out.println("What is the session name? (Write it exactly how it is)");
+      seshName = scan.nextLine();
+      if (lastOne == 1) {
+        for (int i = 0; i < roster.size(); i++) {
+          if (seshName.equals(roster.get(i).retClass1())) {
+            System.out.println(roster.get(i).retName());
+          }
+        }
+      }
+      if (lastOne == 2) {
+        for (int i = 0; i < roster.size(); i++) {
+          if (seshName.equals(roster.get(i).retClass2())) {
+            System.out.println(roster.get(i).retName());
+          }
+        }
+      }
+      if (lastOne == 3) {
+        for (int i = 0; i < roster.size(); i++) {
+          if (seshName.equals(roster.get(i).retClass3())) {
+            System.out.println(roster.get(i).retName());
+          }
+        }
+      }
+      if (lastOne == 4) {
+        for (int i = 0; i < roster.size(); i++) {
+          if (seshName.equals(roster.get(i).retClass4())) {
+            System.out.println(roster.get(i).retName());
+          }
+        }
+      }
+      if (lastOne == 5) {
+        for (int i = 0; i < roster.size(); i++) {
+          if (seshName.equals(roster.get(i).retClass5())) {
+            System.out.println(roster.get(i).retName());
+          }
+        }
+      }
+    }
+  }
+
+  public static void studSearch() {
+    try (Scanner scan = new Scanner(System.in)) {
+      String yesser = "y";
+      String person;
+      do {
+        System.out.println("Would you like to search for a student's schedule? (y/n)");
+        yesser = scan.nextLine();
+        if (yesser.equals("y")) {
+          System.out.println("Who would you like to search up (Must be first, middle and last name!)");
+          person = scan.nextLine();
+          for (int i = 0; i < roster.size(); i++) {
+            if (person.equals(roster.get(i).retName())) {
+              System.out.println("\n\n\n");
+              roster.get(i).StudSchedule();
+              System.out.println();
+            }
+          }
+        }
+      } while (yesser.equals("y"));
+    }
   }
 
   public static void addRoster() {
@@ -158,10 +255,10 @@ public class ReadFile {
     return popScore;
   }
 
-  public static int availConverter(int temp){
+  public static int availConverter(int temp) {
     int perm = 0;
-    for(int i = 0; i < session.size(); i++){
-      if(session.get(i).retName().equals(availSession.get(temp).retName())){
+    for (int i = 0; i < session.size(); i++) {
+      if (session.get(i).retName().equals(availSession.get(temp).retName())) {
         perm = i;
       }
     }
@@ -287,114 +384,198 @@ public class ReadFile {
     }
   }
 
+  public static boolean isFilled(int temp) {
+    int occ = 0;
+    if (seshCounter == 1) {
+      for (int i = 0; i < roster.size(); i++) {
+        if (session.get(temp).retName().equals(roster.get(i).retClass1())) {
+          occ = occ + 1;
+        }
+      }
+      if (occ >= 16) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    if (seshCounter == 2) {
+      for (int i = 0; i < roster.size(); i++) {
+        if (session.get(temp).retName().equals(roster.get(i).retClass2())) {
+          occ = occ + 1;
+        }
+      }
+      if (occ >= 16) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    if (seshCounter == 3) {
+      for (int i = 0; i < roster.size(); i++) {
+        if (session.get(temp).retName().equals(roster.get(i).retClass3())) {
+          occ = occ + 1;
+        }
+      }
+      if (occ >= 16) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    if (seshCounter == 4) {
+      for (int i = 0; i < roster.size(); i++) {
+        if (session.get(temp).retName().equals(roster.get(i).retClass4())) {
+          occ = occ + 1;
+        }
+      }
+      if (occ >= 16) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    for (int i = 0; i < roster.size(); i++) {
+      if (session.get(temp).retName().equals(roster.get(i).retClass5())) {
+        occ = occ + 1;
+      }
+    }
+    if (occ >= 16) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   public static void addMates(int temp) {
     int occ = 0;
-    for (int i = 0; i < availRoster.size(); i++) {
-      if (occ < 16) {
-        if (availRoster.get(i).retFir().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(availRoster.get(i).retName());
-          for (int j = 0; j < roster.size(); j++) {
-            if(i < availRoster.size()){
-              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-                if (inClass(temp, j)) {
-                  roster.get(j).changeFir();
-                  addClasses(j, temp);
-                  occ++;
-                  availRoster.remove(i);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    for (int i = 0; i < availRoster.size(); i++) {
-      if (occ < 16) {
-        if (availRoster.get(i).retSec().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(availRoster.get(i).retName());
-          for (int j = 0; j < roster.size(); j++) {
-            if(i < availRoster.size()){
-              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-                if (inClass(temp, j)) {
-                  roster.get(j).changeSec();
-                  addClasses(j, temp);
-                  occ++;
-                  availRoster.remove(i);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    for (int i = 0; i < availRoster.size(); i++) {
-      if (occ < 16) {
-        if (availRoster.get(i).retThi().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(availRoster.get(i).retName());
-          for (int j = 0; j < roster.size(); j++) {
-            if(i < availRoster.size()){
-              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-                if (inClass(temp, j)) {
-                  roster.get(j).changeThi();
-                  addClasses(j, temp);
-                  occ++;
-                  availRoster.remove(i);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    for (int i = 0; i < availRoster.size(); i++) {
-      if (occ < 16) {
-        if (availRoster.get(i).retFou().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(availRoster.get(i).retName());
-          for (int j = 0; j < roster.size(); j++) {
-            if(i < availRoster.size()){
-              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-                if (inClass(temp, j)) {
-                  roster.get(j).changeFou();
-                  addClasses(j, temp);
-                  occ++;
-                  availRoster.remove(i);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    for (int i = 0; i < availRoster.size(); i++) {
-      if (occ < 16) {
-        if (availRoster.get(i).retFif().equals(session.get(temp).retName())) {
-          session.get(temp).addPeep(availRoster.get(i).retName());
-          for (int j = 0; j < roster.size(); j++) {
-            if(i < availRoster.size()){
-              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-                if (inClass(temp, j)) {
-                  roster.get(j).changeFif();
-                  addClasses(j, temp);
-                  occ++;
-                  availRoster.remove(i);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    if (occ < 16) {
+    if (isFilled(temp)) {
       for (int i = 0; i < availRoster.size(); i++) {
         if (occ < 16) {
+          if (availRoster.get(i).retFir().equals(session.get(temp).retName())) {
+            session.get(temp).addPeep(availRoster.get(i).retName());
+            for (int j = 0; j < roster.size(); j++) {
+              if (isFilled(temp)) {
+                if (i < availRoster.size()) {
+                  if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                    if (inClass(temp, j)) {
+                      roster.get(j).changeFir();
+                      addClasses(j, temp);
+                      occ = 1 + occ;
+                      availRoster.remove(i);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (isFilled(temp)) {
+      for (int i = 0; i < availRoster.size(); i++) {
+        if (isFilled(temp)) {
+          if (availRoster.get(i).retSec().equals(session.get(temp).retName())) {
+            session.get(temp).addPeep(availRoster.get(i).retName());
+            for (int j = 0; j < roster.size(); j++) {
+              if (isFilled(temp)) {
+                if (i < availRoster.size()) {
+                  if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                    if (inClass(temp, j)) {
+                      roster.get(j).changeSec();
+                      addClasses(j, temp);
+                      occ = 1 + occ;
+                      availRoster.remove(i);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (isFilled(temp)) {
+      for (int i = 0; i < availRoster.size(); i++) {
+        if (isFilled(temp)) {
+          if (availRoster.get(i).retThi().equals(session.get(temp).retName())) {
+            session.get(temp).addPeep(availRoster.get(i).retName());
+            for (int j = 0; j < roster.size(); j++) {
+              if (isFilled(temp)) {
+                if (i < availRoster.size()) {
+                  if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                    if (inClass(temp, j)) {
+                      roster.get(j).changeThi();
+                      addClasses(j, temp);
+                      occ = 1 + occ;
+                      availRoster.remove(i);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (isFilled(temp)) {
+      for (int i = 0; i < availRoster.size(); i++) {
+        if (isFilled(temp)) {
+          if (availRoster.get(i).retFou().equals(session.get(temp).retName())) {
+            session.get(temp).addPeep(availRoster.get(i).retName());
+            for (int j = 0; j < roster.size(); j++) {
+              if (isFilled(temp)) {
+                if (i < availRoster.size()) {
+                  if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                    if (inClass(temp, j)) {
+                      roster.get(j).changeFou();
+                      addClasses(j, temp);
+                      occ = 1 + occ;
+                      availRoster.remove(i);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (isFilled(temp)) {
+      for (int i = 0; i < availRoster.size(); i++) {
+        if (isFilled(temp)) {
+          if (availRoster.get(i).retFif().equals(session.get(temp).retName())) {
+            session.get(temp).addPeep(availRoster.get(i).retName());
+            for (int j = 0; j < roster.size(); j++) {
+              if (isFilled(temp)) {
+                if (i < availRoster.size()) {
+                  if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                    if (inClass(temp, j)) {
+                      roster.get(j).changeFif();
+                      addClasses(j, temp);
+                      occ = 1 + occ;
+                      availRoster.remove(i);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (isFilled(temp)) {
+      for (int i = 0; i < availRoster.size(); i++) {
+        if (isFilled(temp)) {
           session.get(temp).addPeep(availRoster.get(i).retName());
           for (int j = 0; j < roster.size(); j++) {
-            if(i < availRoster.size()){
-              if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
-                if(inClass(temp, j)){
-                  addClasses(j, temp);
-                  availRoster.remove(i);
-                  occ++;
+            if (isFilled(temp)) {
+              if (i < availRoster.size()) {
+                if (roster.get(j).retName().equals(availRoster.get(i).retName())) {
+                  if (inClass(temp, j)) {
+                    addClasses(j, temp);
+                    availRoster.remove(i);
+                    occ = 1 + occ;
+                  }
                 }
               }
             }

@@ -123,7 +123,7 @@ public class Roster {
     }
 
     public void StudSchedule(){
-        System.out.println("First Block:\n" + firClass + "\nSecond Block:\n" + secClass  + "\nThird Block:\n" + thiClass  + "\nFourth Block:\n" + fouClass  + "\nFifth Block:\n" + fifClass);
+        System.out.println("First Block:\n" + firClass + "\n\nSecond Block:\n" + secClass  + "\n\nThird Block:\n" + thiClass  + "\n\nFourth Block:\n" + fouClass  + "\n\nFifth Block:\n" + fifClass);
     }
 }
 
