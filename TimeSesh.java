@@ -21,6 +21,6 @@ public class TimeSesh {
     }
 
     public String whatClasses() {
-        return classIn1 + " " + classIn2 + " " + classIn3 + " " + classIn4 + " " + classIn5;
+        return classIn1 + " \n" + classIn2 + " \n" + classIn3 + " \n" + classIn4 + " \n" + classIn5;
     }
 }

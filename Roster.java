@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Roster {
     
     private String emailIn;
@@ -7,6 +9,8 @@ public class Roster {
     private String thiIn;
     private String fouIn;
     private String fifIn;
+    private static ArrayList<String> classList;
+
 
     public Roster(String nameG, String emailG, String firCh, String secCh, String thiCh, String fouCh, String fifCh){
         emailIn = emailG;
@@ -16,6 +20,7 @@ public class Roster {
         thiIn = thiCh;
         fouIn = fouCh;
         fifIn = fifCh;
+        classList = new ArrayList<String>();
     }
 
     public String toString(){
@@ -68,6 +73,14 @@ public class Roster {
 
     public void changeFif(){
         fifIn = "";
+    }
+
+    public void updateClass(String sesh){
+        classList.add(sesh);
+    }
+
+    public String retClassList(int i){
+        return classList.get(i);
     }
 }
 
