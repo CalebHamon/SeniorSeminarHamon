@@ -22,8 +22,8 @@ public class Sessions {
         roster.add(perG);
     }    
 
-    public int retPeep(){
-        return roster.size();
+    public ArrayList<String> retPeep(){
+        return roster;
     }
 
     public String retName(){

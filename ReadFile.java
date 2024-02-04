@@ -8,6 +8,7 @@ public class ReadFile {
   public static ArrayList<Roster> roster = new ArrayList<Roster>();
   public static ArrayList<Roster> availRoster = new ArrayList<Roster>();
   public static ArrayList<Sessions> session = new ArrayList<Sessions>();
+  public static ArrayList<Sessions> availSession = new ArrayList<Sessions>();
   public static ArrayList<TimeSesh> timeSlot = new ArrayList<TimeSesh>();
   public static int seshCounter = 1;
 
@@ -17,12 +18,6 @@ public class ReadFile {
     for (int i = 0; i < 5; i++) {
       makeClasses();
     }
-    //System.out.println("\n\n\n\n");
-    System.out.println(timeSlot.get(0).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(1).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(2).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(3).whatClasses() + "\n\n\n\n");
-    //System.out.println(timeSlot.get(4).whatClasses() + "\n\n\n\n");
   }
 
   public static void addRoster() {
@@ -91,6 +86,7 @@ public class ReadFile {
         String alumNameStr = alScanner.nextLine();
         Sessions b1 = new Sessions(sesData, popScore, alumNameStr);
         session.add(b1);
+        availSession.add(b1);
       }
       sesScanner.close();
       alScanner.close();
@@ -115,13 +111,13 @@ public class ReadFile {
   }
 
   public static boolean duplicateClass(int checker, String class1, String class2, String class3, String class4) {
-    if (session.get(checker).retName().equals(class1)) {
+    if (availSession.get(checker).retName().equals(class1)) {
       return false;
-    } else if (session.get(checker).retName().equals(class2)) {
+    } else if (availSession.get(checker).retName().equals(class2)) {
       return false;
-    } else if (session.get(checker).retName().equals(class3)) {
+    } else if (availSession.get(checker).retName().equals(class3)) {
       return false;
-    } else if (session.get(checker).retName().equals(class4)) {
+    } else if (availSession.get(checker).retName().equals(class4)) {
       return false;
     } else {
       return true;
@@ -147,138 +143,135 @@ public class ReadFile {
     return popScore;
   }
 
+  public static void transferRoster(String class1, String class2, String class3, String class4, String class5){
+    ArrayList<String> b1 = new ArrayList<String>();
+    ArrayList<String> b2 = new ArrayList<String>();
+    ArrayList<String> b3 = new ArrayList<String>();
+    ArrayList<String> b4 = new ArrayList<String>();
+    ArrayList<String> b5 = new ArrayList<String>();
+    for (int i = 0; i < session.size(); i++){
+      if(session.get(i).retName().equals(class1)){
+        b1 = session.get(i).retPeep();
+      }
+    }
+    for (int i = 0; i < session.size(); i++){
+      if(session.get(i).retName().equals(class2)){
+        b2 = session.get(i).retPeep();
+      }
+    }
+    for (int i = 0; i < session.size(); i++){
+      if(session.get(i).retName().equals(class3)){
+        b3 = session.get(i).retPeep();
+      }
+    }
+    for (int i = 0; i < session.size(); i++){
+      if(session.get(i).retName().equals(class4)){
+        b4 = session.get(i).retPeep();
+      }
+    }
+    for (int i = 0; i < session.size(); i++){
+      if(session.get(i).retName().equals(class5)){
+        b5 = session.get(i).retPeep();
+      }
+    }
+    timeSlot.get(seshCounter-1).addTimeRost(b1, b2, b3, b4, b5);
+  }
+
   public static void makeClasses() {
     int tempPlace = 0;
-    for (int i = 0; i < session.size(); i++) {
-      if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
+    for (int i = 0; i < availSession.size(); i++) {
+      if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
         tempPlace = i;
       }
     }
-    String class1 = session.get(tempPlace).retName();
-    String alumData1 = session.get(tempPlace).retAlum();
+    String class1 = availSession.get(tempPlace).retName();
+    String alumData1 = availSession.get(tempPlace).retAlum();
     addMates(tempPlace);
-    for(int i = 0; i < session.size(); i++){
-      session.get(i).updatePop(popScore(session.get(i).retName()));
+    availSession.remove(tempPlace);
+    for(int i = 0; i < availSession.size(); i++){
+      availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
-    for (int i = 0; i < session.size(); i++) {
-      if (duplicateClass(i, class1, class1, class1, class1)) {
-        if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
+    for (int i = 0; i < availSession.size(); i++) {
+        if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
           if (duplicateAlum(i, alumData1, alumData1, alumData1, alumData1)) {
             tempPlace = i;
           }
         }
-      }
     }
-    if(tempPlace == 0 && !(duplicateClass(tempPlace, class1, class1, class1, class1))){
-      tempPlace = 1;
-      for (int i = 2; i < session.size(); i++){
-        if (duplicateClass(i, class1, class1, class1, class1)) {
-          if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
-            if (duplicateAlum(i, alumData1, alumData1, alumData1, alumData1)) {
-              tempPlace = i;
-            }
-          }
-        }
-      }
-    }
-    String class2 = session.get(tempPlace).retName();
-    String alumData2 = session.get(tempPlace).retAlum();
+    String class2 = availSession.get(tempPlace).retName();
+    String alumData2 = availSession.get(tempPlace).retAlum();
     addMates(tempPlace);
-    for(int i = 0; i < session.size(); i++){
-      session.get(i).updatePop(popScore(session.get(i).retName()));
+    availSession.remove(tempPlace);
+    for(int i = 0; i < availSession.size(); i++){
+      availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
-    for (int i = 1; i < session.size(); i++) {
+    for (int i = 1; i < availSession.size(); i++) {
       if (duplicateClass(i, class1, class2, class1, class2)) {
-        if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
+        if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
           if (duplicateAlum(i, alumData1, alumData2, alumData1, alumData1)) {
             tempPlace = i;
           }
         }
       }
     }
-    if(tempPlace == 0 && !(duplicateClass(tempPlace, class1, class2, class1, class1))){
-      tempPlace = 1;
-      for (int i = 2; i < session.size(); i++){
-        if (duplicateClass(i, class1, class2, class1, class1)) {
-          if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
-            if (duplicateAlum(i, alumData1, alumData2, alumData1, alumData1)) {
-              tempPlace = i;
-            }
-          }
-        }
-      }
-    }
-    String class3 = session.get(tempPlace).retName();
-    String alumData3 = session.get(tempPlace).retAlum();
+    String class3 = availSession.get(tempPlace).retName();
+    String alumData3 = availSession.get(tempPlace).retAlum();
     addMates(tempPlace);
-    for(int i = 0; i < session.size(); i++){
-      session.get(i).updatePop(popScore(session.get(i).retName()));
+    availSession.remove(tempPlace);
+    for(int i = 0; i < availSession.size(); i++){
+      availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
-    for (int i = 1; i < session.size(); i++) {
+    for (int i = 1; i < availSession.size(); i++) {
       if (duplicateClass(i, class1, class2, class3, class3)) {
-        if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
+        if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
           if (duplicateAlum(i, alumData1, alumData2, alumData3, alumData1)) {
             tempPlace = i;
           }
         }
       }
     }
-    if(tempPlace == 0 && !(duplicateClass(tempPlace, class1, class2, class3, class1))){
-      tempPlace = 1;
-      for (int i = 2; i < session.size(); i++){
-        if (duplicateClass(i, class1, class2, class3, class1)) {
-          if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
-            if (duplicateAlum(i, alumData1, alumData2, alumData3, alumData1)) {
-              tempPlace = i;
-            }
-          }
-        }
-      }
-    }
-    String class4 = session.get(tempPlace).retName();
-    String alumData4 = session.get(tempPlace).retAlum();
+    String class4 = availSession.get(tempPlace).retName();
+    String alumData4 = availSession.get(tempPlace).retAlum();
     addMates(tempPlace);
-    for(int i = 0; i < session.size(); i++){
-      session.get(i).updatePop(popScore(session.get(i).retName()));
+    availSession.remove(tempPlace);
+    for(int i = 0; i < availSession.size(); i++){
+      availSession.get(i).updatePop(popScore(availSession.get(i).retName()));
     }
     tempPlace = 0;
-    for (int i = 1; i < session.size(); i++) {
+    for (int i = 1; i < availSession.size(); i++) {
       if (duplicateClass(i, class1, class2, class3, class4)) {
-        if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
+        if (availSession.get(tempPlace).retPop() < availSession.get(i).retPop()) {
           if (duplicateAlum(i, alumData1, alumData2, alumData3, alumData4)) {
             tempPlace = i;
           }
         }
       }
     }
-    if(tempPlace == 0 && !(duplicateClass(tempPlace, class1, class2, class3, class4))){
-      tempPlace = 1;
-      for (int i = 2; i < session.size(); i++){
-        if (duplicateClass(i, class1, class2, class3, class4)) {
-          if (session.get(tempPlace).retPop() < session.get(i).retPop()) {
-            if (duplicateAlum(i, alumData1, alumData2, alumData3, alumData4)) {
-              tempPlace = i;
-            }
-          }
-        }
-      }
-    }
-    String class5 = session.get(tempPlace).retName();
+    String class5 = availSession.get(tempPlace).retName();
     addMates(tempPlace);
     for(int i = 0; i < session.size(); i++){
       session.get(i).updatePop(popScore(session.get(i).retName()));
     }
-    tempPlace = 0;
     TimeSesh b1 = new TimeSesh(seshCounter, class1, class2, class3, class4, class5);
     timeSlot.add(b1);
+    transferRoster(class1, class2, class3, class4, class5);
+    removeMates();
     seshCounter++;
     availRoster = roster;
+    availSession = session;
   }
 
   public static void addMates(int temp) {
+    int getInt = 0;
+    for(int i = 0; i < session.size(); i++){
+      if(availSession.get(temp).retName().equals(session.get(i).retName())){
+        getInt = i;
+      }
+    }
+    temp = getInt;
     int occ = 0;
     for (int i = 0; i < availRoster.size(); i++) {
       if (occ < 16) {
@@ -368,6 +361,12 @@ public class ReadFile {
           occ++;
         }
       }
+    }
+  }
+
+  public static void removeMates(){
+    for (int i = 0; i < session.size(); i++){
+      session.get(i).retPeep().clear();
     }
   }
 }
