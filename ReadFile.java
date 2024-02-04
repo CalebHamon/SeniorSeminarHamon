@@ -20,9 +20,9 @@ public class ReadFile {
     for (int i = 0; i < 5; i++) {
       makeClasses();
     }
-    // masterSched();
+    masterSched();
     classLookup();
-    // studSearch();
+    studSearch();
 
   }
 
