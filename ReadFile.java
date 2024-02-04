@@ -11,6 +11,7 @@ public class ReadFile {
   public static ArrayList<Sessions> availSession = new ArrayList<Sessions>();
   public static ArrayList<TimeSesh> timeSlot = new ArrayList<TimeSesh>();
   public static int seshCounter = 1;
+  private static Scanner scan = new Scanner(System.in);
 
   public static void main(String[] args) {
     addRoster();
@@ -26,7 +27,6 @@ public class ReadFile {
   }
 
   public static void masterSched() {
-    try (Scanner scan = new Scanner(System.in)) {
       String yesser = "y";
       System.out.println("Would you like the Master Schedule? (y/n)");
       System.out.println("The classes will be arranged in order of time (first set is period 1, etc)");
@@ -39,34 +39,21 @@ public class ReadFile {
         System.out.println(timeSlot.get(3).whatClasses() + "\n\n\n\n");
         System.out.println(timeSlot.get(4).whatClasses() + "\n\n\n\n");
       }
-    }
   }
 
   public static void classLookup() {
-    try (Scanner scan = new Scanner(System.in)) {
       String yesser = "y";
-      int lastOne = 0;
-      int key = 0;
-      do {
-        System.out.println("Would you like to search for a session's schedule? (y/n)");
+      System.out.println("Would you like to search for a session's schedule? (y/n)");
+      do{
         yesser = scan.nextLine();
         if (yesser.equals("y")) {
-          key = 1; 
-          do {
-            System.out.println("What time slot is the session in (1, 2, 3, 4, 5)? (please use number 1, 2, etc)");
-            lastOne = scan.nextInt();
-          } while (!(lastOne >= 1) && !(lastOne <= 5));
-          classLookupP2(lastOne);
+          classLookupP2(classLookupP3());
+          System.out.println("Would you like to conduct another search?");
         }
-        else{
-          key = 0;
-        }
-      } while (!(key == 1));
-    }
+      } while (yesser.equals("y"));
   }
 
   public static void classLookupP2(int lastOne) {
-    try (Scanner scan = new Scanner(System.in)) {
       String seshName;
       System.out.println("What is the session name? (Write it exactly how it is)");
       seshName = scan.nextLine();
@@ -105,11 +92,9 @@ public class ReadFile {
           }
         }
       }
-    }
   }
 
   public static void studSearch() {
-    try (Scanner scan = new Scanner(System.in)) {
       String yesser = "y";
       String person;
       do {
@@ -127,7 +112,17 @@ public class ReadFile {
           }
         }
       } while (yesser.equals("y"));
-    }
+  }
+
+  public static int classLookupP3(){
+      int lastOne;
+      do {
+        System.out.println("What time slot is the session in (1, 2, 3, 4, 5)? (please use number 1, 2, etc)");
+        lastOne = scan.nextInt();
+        scan.nextLine();
+        System.out.println();
+      } while (!(lastOne >= 1) && !(lastOne <= 5));
+      return lastOne;
   }
 
   public static void addRoster() {
