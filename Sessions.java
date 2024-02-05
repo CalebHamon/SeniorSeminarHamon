@@ -7,6 +7,7 @@ public class Sessions {
     public static ArrayList<String> roster;
 
 
+    //Arraylist setup for each session
     public Sessions(String nameG, int popG, String alumG){
         nameIn = nameG;
         popIn = popG;

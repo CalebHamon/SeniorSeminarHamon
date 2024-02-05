@@ -14,7 +14,7 @@ public class TimeSesh {
     public  ArrayList<String> class4Roster;
     public  ArrayList<String> class5Roster;
 
-
+    //Arraylist setup for each time period
     public TimeSesh(int timeSlot, String class1, String class2, String class3, String class4, String class5){
         slotIn = timeSlot;
         classIn1 = class1;

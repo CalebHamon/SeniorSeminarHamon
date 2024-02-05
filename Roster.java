@@ -13,7 +13,9 @@ public class Roster {
     private String fouClass;
     private String fifClass;
     
-
+    /*
+     * Setting up for an Arraylist with everything that could be associated with the student
+     */
 
     public Roster(String nameG, String emailG, String firCh, String secCh, String thiCh, String fouCh, String fifCh){
         emailIn = emailG;
